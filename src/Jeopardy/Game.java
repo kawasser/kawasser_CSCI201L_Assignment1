@@ -317,14 +317,22 @@ public class Game {
 		/*This is the main method for game play
 		 * this is recalled when a played types replay
 		 */
-		
 		Scanner reader = new Scanner(System.in);
+		boolean check=true;
+		System.out.println("AutoPlay?");
+		String str= reader.nextLine();
+		str= str.toLowerCase();
+
+		
+		
+
 		Random rand = new Random();
 		int  num  = rand.nextInt(n );
-		
+		if (str.equalsIgnoreCase("yes")){}
+		else{
 		for (int k=0; k<25; k++){//repeats 25 times for each question
 			System.out.println("It's " + t.get(num).get_name()+"'s turn. Please enter a category.");
-			String str= reader.nextLine();
+			str= reader.nextLine();
 			str= str.toLowerCase();
 			int which_cat=0;
 			
@@ -431,11 +439,12 @@ public class Game {
 		
 		}
 		
-		boolean check=false;
+
 		for (int i=0; i<n; i++){//checks to make sure not all teams have negative points
 			if (t.get(i).get_score()>0){
 				check=true;
 			}
+		}
 		}
 		if (!check){
 			System.out.println("All teams have negative score. No one won the game.");
@@ -443,7 +452,7 @@ public class Game {
 		else{	
 			System.out.println("Final Jeopardy round!");
 			for (int i=0; i<n; i++){//for each team gets how much they want to bet
-				if (t.get(i).get_score()>=0){//unless they have a negative score
+				//if (t.get(i).get_score()>=0){//unless they have a negative score
 					System.out.println(t.get(i).get_name() + ", how much would you like to bet?");
 					String tr= reader.nextLine();
 					if (tr.equalsIgnoreCase("exit")){
@@ -455,7 +464,7 @@ public class Game {
 					}
 					int temp= Integer.parseInt(tr);
 					t.get(i).setBet(temp);
-				}
+				//}
 			}//if bet not valid error message, what is invalid bet?
 	
 			
@@ -566,10 +575,13 @@ public class Game {
 						return false;
 					}
 					quest=temp;
-					if (count==23){}
-					else{
+//					if (count==23){
+//						
+				//		temp="";
+					//}
+					//else{
 					temp="";
-					}
+					//}
 
 				}
 			} catch (IOException e) {
@@ -578,7 +590,7 @@ public class Game {
 			if (!parse_questions( g,  quest,  br)){
 				return false;
 			}
-			if (count!=26){
+			if (count!=25){
 				return false;
 			}
 			for (int i=0; i<r.size()-1; i++){//checks every category to make sure all the questions are valid (except FJ
@@ -605,9 +617,7 @@ public class Game {
 					try{
 						String line = br.readLine();
 						//check beginning of line to make sure it's a word 
-						if (!(Character.isLetter(line.charAt(0)))){
-							return;
-						}
+
 			
 						//gets categories
 						g.cat1= new Catergory(g.getcats(line));
@@ -686,6 +696,8 @@ public class Game {
 			
 			System.out.println("Welcome to Jeopardy!");
 			System.out.println("Please enter the number of teams that will be playing in this game");
+
+			
 
 			int n= Integer.parseInt(reader.nextLine());
 			
